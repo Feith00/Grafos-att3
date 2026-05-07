@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+
+public class ItemForja
+{
+    
+    public string Nome { get; set; } = "Ferro";
+    public int TempS { get; set; }
+    public string Tipo { get; set; } = "Padrão";
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Queue<ItemForja> forjaQueue = new Queue<ItemForja>();
+        bool verificarForja = false;
+
+
+        forjaQueue.Enqueue(new ItemForja { Nome = "Espada de Ferro", TempS = 15, Tipo = "Espada" });
+        forjaQueue.Enqueue(new ItemForja { Nome = "Escudo", TempS = 10, Tipo = "Escudo" });
+        forjaQueue.Enqueue(new ItemForja { Nome = "Pacote de Flechas", TempS = 5, Tipo = "Flecha" });
+
+    
+        while (forjaQueue.Count > 0)
+        {
+          
+            ItemForja processando = forjaQueue.Dequeue();
+            Console.WriteLine($"Item fabricado com sucesso: {processando.Nome}!");
+            Console.WriteLine($"Tempo de Forja: {processando.TempS} min\n");
+
+           
+            if (forjaQueue.Count > 0)
+            {
+                ItemForja proximo = forjaQueue.Peek();
+                Console.WriteLine($"Próximo na fila: {proximo.Nome}!");
+                Console.WriteLine($"Tempo Esperado: {proximo.TempS} min");
+                Console.WriteLine($"Tipo: {proximo.Tipo}\n");
+            }
+        }
+
+        Console.WriteLine("Fila Vazia. Nenhum item para forjar.");
+    }
+}
