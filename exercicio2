@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Personagem
+{
+    public string Nome { get; set; } = "Desconhecido";
+    public int Velocidade { get; set; }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+      
+        List<Personagem> listaPersonagens = new List<Personagem>();
+        
+        listaPersonagens.Add(new Personagem { Nome = "Geralt", Velocidade = 15 });
+        listaPersonagens.Add(new Personagem { Nome = "Joel", Velocidade = 8 });
+        listaPersonagens.Add(new Personagem { Nome = "Leon", Velocidade = 10 });
+
+      
+        List<Personagem> personagensOrdenados = listaPersonagens
+            .OrderByDescending(p => p.Velocidade)
+            .ToList();
+
+  
+        Queue<Personagem> filaCombate = new Queue<Personagem>();
+        
+        foreach (var personagem in personagensOrdenados)
+        {
+            filaCombate.Enqueue(personagem);
+        }
+
+     
+        Console.WriteLine("Ordem de ataque:");
+        
+        int contador = 1;
+        while (filaCombate.Count > 0)
+        {
+            Personagem atacante = filaCombate.Dequeue();
+        
+            if (contador < 3)
+            {
+                Console.Write($"{contador} - Ataque: {atacante.Nome}, ");
+            }
+            else
+            {
+                Console.WriteLine($"{contador} - Ataque: {atacante.Nome}");
+            }
+            
+            contador++;
+        }
+
+        Console.WriteLine("\nFila encerrada. Todos os personagens atacaram.");
+    }
+}
