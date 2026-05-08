@@ -1,0 +1,62 @@
+using System;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static void Main()
+    {
+        string[] tabuleiro = { "Vazio", "Vazio", "Vazio" };
+
+        Stack<string[]> historico = new Stack<string[]>();
+
+        Console.WriteLine("Estado Inicial");
+        ImprimirTabuleiro(tabuleiro);
+
+        historico.Push((string[])tabuleiro.Clone());
+
+        
+        tabuleiro[0] = "Jogador";
+        historico.Push((string[])tabuleiro.Clone());
+
+        Console.WriteLine("Posição 0");
+        ImprimirTabuleiro(tabuleiro);
+
+       
+        tabuleiro[1] = "Jogador"; 
+       
+        tabuleiro[0] = "Vazio";   
+
+        historico.Push((string[])tabuleiro.Clone());
+
+        Console.WriteLine("Posição 1");
+        ImprimirTabuleiro(tabuleiro);
+
+        if (historico.Count > 1)
+        {
+            Console.WriteLine("Desfazendo jogada");
+            
+            string[] estadoAnterior = historico.Pop();
+            estadoAnterior = historico.Pop();
+            
+            tabuleiro = estadoAnterior;
+
+            Console.WriteLine("Estado Restaurado");
+            ImprimirTabuleiro(tabuleiro);
+        }
+        else
+        {
+            Console.WriteLine("Nenhuma jogada para desfazer.");
+        }
+    }
+
+    public static void ImprimirTabuleiro(string[] tab)
+    {
+        Console.Write("Tabuleiro: [");
+        for (int i = 0; i < tab.Length; i++)
+        {
+            Console.Write(tab[i]);
+            if (i < tab.Length - 1) Console.Write(", ");
+        }
+        Console.WriteLine("]");
+    }
+}
